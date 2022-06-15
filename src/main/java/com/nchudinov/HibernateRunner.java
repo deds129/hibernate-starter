@@ -1,6 +1,6 @@
 package com.nchudinov;
 
-
+import com.nchudinov.entity.Role;
 import com.nchudinov.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,6 +27,7 @@ public class HibernateRunner {
 					.lastname("Maximovich")
 					.birthDate(LocalDate.of(2000, 11, 11))
 					.age(22)
+					.role(Role.ADMIN)
 					.build();
 			session.save(user);
 
