@@ -1,5 +1,7 @@
 package com.nchudinov;
 
+import com.nchudinov.converter.BirthdayConverter;
+import com.nchudinov.entity.Birthday;
 import com.nchudinov.entity.Role;
 import com.nchudinov.entity.User;
 import org.hibernate.Session;
@@ -13,6 +15,7 @@ public class HibernateRunner {
 
 	public static void main(String[] args) throws SQLException {
 		Configuration configuration = new Configuration();
+		//configuration.addAttributeConverter(new BirthdayConverter(), true);
 		configuration.configure(); //path to config file
 
 		try (SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -25,8 +28,7 @@ public class HibernateRunner {
 					.username("Max")
 					.firstname("Maximov")
 					.lastname("Maximovich")
-					.birthDate(LocalDate.of(2000, 11, 11))
-					.age(22)
+					.birthDate(new Birthday(LocalDate.of(2000, 11, 11)))
 					.role(Role.ADMIN)
 					.build();
 			session.save(user);
