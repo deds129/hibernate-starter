@@ -1,10 +1,13 @@
 package com.nchudinov.entity;
 
 import com.nchudinov.converter.BirthdayConverter;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
@@ -27,5 +30,8 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	@Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+	private String info;
 	
 }

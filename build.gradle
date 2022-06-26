@@ -20,6 +20,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     runtimeOnly 'org.postgresql:postgresql:42.2.23'
 
+    // https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52
+    implementation 'com.vladmihalcea:hibernate-types-52:2.12.1'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+
     //lombok dependencies
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
