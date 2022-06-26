@@ -1,53 +1,53 @@
 package com.nchudinov;
 
-import com.nchudinov.entity.Birthday;
-import com.nchudinov.entity.Role;
 import com.nchudinov.entity.User;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.nchudinov.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class HibernateRunner {
 
 	public static void main(String[] args) throws SQLException {
-		Configuration configuration = new Configuration();
-		//configuration.addAttributeConverter(new BirthdayConverter(), true);
-		configuration.registerTypeOverride(new JsonBinaryType());
-		configuration.configure(); //path to config file
 
-		try (SessionFactory sessionFactory = configuration.buildSessionFactory();
-			 //configuration.addAnnotatedClass(User.class);
-		Session session = sessionFactory.openSession()) {
-			
-			session.beginTransaction();
-			
-//			User user = User.builder()
-//					.username("Max")
-//					.firstname("Maximov")
-//					.lastname("Maximovich")
-//					.birthDate(new Birthday(LocalDate.of(2000, 11, 11)))
-//					.role(Role.ADMIN)
-//					.build();
-//			session.save(user);
-//
-//			User user2 = User.builder()
-//					.username("Oleg")
-//					.firstname("Olegov")
-//					.lastname("Olegovich")
-//					.birthDate(new Birthday(LocalDate.of(1995, 01, 01)))
-//					.role(Role.ADMIN)
-//					.build();
-//			session.save(user);
-//			session.save(user2);
-			
-			User u1 = session.get(User.class, "Max");
-			u1.setLastname("NeMaximov");
-			// изменения в базе данных отразятся без session.update(u1);
-			session.getTransaction().commit();
+
+		try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
+			//Entity in transient state for all sessions
+			User user = User.builder()
+					.username("max")
+					.lastname("maximov")
+					.build();
+
+			try (Session session1 = sessionFactory.openSession()) {
+				//Entity is in persist state for session1 and transient for session2
+				session1.saveOrUpdate(user);
+				session1.getTransaction().commit();
+			}
+
+			try (Session session2 = sessionFactory.openSession()) {
+
+				
+				// пользователь не находится в состоянии Persist для session2, сущность не изменена в БД
+				user.setFirstname("Oleg");
+				
+				// пользователь находится в состоянии Persist для session2, свойства объекта НЕ изменяются
+				//значения в базе данных важнее
+				//Dirty session
+				session2.refresh(user);
+
+				// пользователь находится в состоянии Persist для session2, свойства объекта ИЗМЕНЯЮТСЯ
+				//cвойства Entity важнее
+				//Clean session
+				user.setFirstname("Oleg");
+				session2.merge(user);
+
+				//получить пользователя + удалить пользователя
+				// Объект переходит в постоянное состояние, а после удаления переходит в удаленное состояние
+				session2.delete(user);
+				session2.getTransaction().commit();
+			}
+
 		}
 
 	}
