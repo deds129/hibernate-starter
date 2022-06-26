@@ -25,14 +25,28 @@ public class HibernateRunner {
 			
 			session.beginTransaction();
 			
-			User user = User.builder()
-					.username("Max")
-					.firstname("Maximov")
-					.lastname("Maximovich")
-					.birthDate(new Birthday(LocalDate.of(2000, 11, 11)))
-					.role(Role.ADMIN)
-					.build();
-			session.save(user);
+//			User user = User.builder()
+//					.username("Max")
+//					.firstname("Maximov")
+//					.lastname("Maximovich")
+//					.birthDate(new Birthday(LocalDate.of(2000, 11, 11)))
+//					.role(Role.ADMIN)
+//					.build();
+//			session.save(user);
+//
+//			User user2 = User.builder()
+//					.username("Oleg")
+//					.firstname("Olegov")
+//					.lastname("Olegovich")
+//					.birthDate(new Birthday(LocalDate.of(1995, 01, 01)))
+//					.role(Role.ADMIN)
+//					.build();
+//			session.save(user);
+//			session.save(user2);
+			
+			User u1 = session.get(User.class, "Max");
+			u1.setLastname("NeMaximov");
+			// изменения в базе данных отразятся без session.update(u1);
 			session.getTransaction().commit();
 		}
 
