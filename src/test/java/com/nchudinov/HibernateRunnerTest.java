@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.xml.transform.Result;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.SQLOutput;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
@@ -22,6 +22,22 @@ import static java.util.stream.Collectors.joining;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HibernateRunnerTest {
+	
+	@Test
+	void checkGetReflection() throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		resultSet.getString("username");
+		resultSet.getString("firstname");
+		resultSet.getString("lastname");
+
+		Class<User> clazz = User.class;
+		Constructor<User> constructor = clazz.getConstructor();
+		User user = constructor.newInstance();
+		Field username = clazz.getDeclaredField("username");
+		username.setAccessible(true);
+		username.set(user, resultSet.getString("username"));
+	}
 	
 	@Test
 	void checkReflectionApi() throws SQLException, IllegalAccessException {

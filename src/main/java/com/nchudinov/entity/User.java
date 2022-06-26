@@ -31,7 +31,4 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
-	private String info;
-	
 }

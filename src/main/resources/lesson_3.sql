@@ -5,8 +5,7 @@ create table users
     firstname  varchar(128),
     lastname   varchar(128),
     birth_date date,
-    role varchar(32),
-    info JSONB
+    role varchar(32)
 );
 
 DROP table users;
