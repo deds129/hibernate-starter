@@ -21,12 +21,9 @@ public class User {
 	
 	@Id
 	private String username;
-	private String firstname;
-	private String lastname;
 	
-	@Convert(converter = BirthdayConverter.class)
-	@Column(name = "birth_date")
-	private Birthday birthDate;
+	@Embedded
+	private PersonalInfo personalInfo;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
