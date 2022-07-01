@@ -2,19 +2,17 @@ package com.nchudinov;
 
 import com.nchudinov.entity.User;
 import com.nchudinov.util.HibernateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 
+@Slf4j
 public class HibernateRunner {
 	
-	public static final Logger log = LoggerFactory.getLogger(HibernateRunner.class);
-
 	public static void main(String[] args) throws SQLException {
 
 
