@@ -20,6 +20,12 @@ import javax.persistence.*;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
+	@SequenceGenerator(name = "user_gen", sequenceName = "users_id_seq", allocationSize = 1)
+	// hibernate_sequence in hibernate by default
+	private Long id;
+	
+	@Column(unique = true)
 	private String username;
 	
 	@Embedded

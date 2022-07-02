@@ -1,7 +1,7 @@
 create table users
 (
-    username   varchar(128) not null
-        primary key,
+    id bigint primary key,
+    username   varchar(128) unique,
     firstname  varchar(128),
     lastname   varchar(128),
     birth_date date,
