@@ -20,9 +20,15 @@ import javax.persistence.*;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
-	@SequenceGenerator(name = "user_gen", sequenceName = "users_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "user_gen")
+	//@SequenceGenerator(name = "user_gen", sequenceName = "users_id_seq", allocationSize = 1)
 	// hibernate_sequence in hibernate by default
+	@TableGenerator(name = "user_gen",
+			table = "all_sequence",
+			allocationSize = 1,
+			pkColumnName = "table_name",
+			valueColumnName = "pk_value"
+	)
 	private Long id;
 	
 	@Column(unique = true)
