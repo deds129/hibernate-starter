@@ -8,4 +8,6 @@ create table users
     role varchar(32)
 );
 
+create sequence user_id_seq owned by users.id;
+
 DROP table users;
