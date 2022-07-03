@@ -41,6 +41,18 @@ public class HibernateRunner {
 			}
 
 			log.warn("User is in detached state: {}, session is closed {}", user, session1);
+			
+			try(Session session2 = sessionFactory.openSession()) {
+				PersonalInfo key = PersonalInfo.builder()
+						.firstname("Oleg")
+						.lastname("Olegov")
+						.birthDate(new Birthday(LocalDate.of(2000, 01, 01)))
+						.build();
+
+				User user1 = session2.get(User.class, key);
+
+				System.out.println();
+			}
 
 		}
 

@@ -1,23 +1,12 @@
-drop table if exists users;
+DROP table  if exists users;
 
 create table users
 (
-    id bigint primary key,
-    username   varchar(128) unique,
-    firstname  varchar(128),
-    lastname   varchar(128),
-    birth_date date,
-    role varchar(32)
+    firstname  varchar(128) not null,
+    lastname   varchar(128) not null,
+    birth_date date not null,
+    username   varchar(128) unique ,
+    role varchar(32),
+    primary key (firstname, lastname, birth_date)
 );
 
-create sequence user_id_seq owned by users.id;
-
-drop sequence user_id_seq;
-
-DROP table users;
-
-create table all_sequence
-(
-    table_name varchar(32) primary key, 
-    pk_value bigint not null
-);
