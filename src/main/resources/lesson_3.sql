@@ -1,12 +1,20 @@
 DROP table  if exists users;
+DROP table  if exists company;
+
+create table company
+(
+    id serial primary key,
+    name varchar(64) not null unique
+);
 
 create table users
 (
-    firstname  varchar(128) not null,
-    lastname   varchar(128) not null,
-    birth_date date not null,
+    id bigserial primary key,
     username   varchar(128) unique ,
+    firstname  varchar(128),
+    lastname   varchar(128),
+    birth_date date,
     role varchar(32),
-    primary key (firstname, lastname, birth_date)
+    company_id int references company(id)
 );
 

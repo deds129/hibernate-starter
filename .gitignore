@@ -21,6 +21,8 @@ bin/
 log/
 target/
 
+logs/
+
 projectName.iml
 /*.classpath
 /.classpath

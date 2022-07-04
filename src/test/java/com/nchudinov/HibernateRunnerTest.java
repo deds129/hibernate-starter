@@ -1,6 +1,7 @@
 package com.nchudinov;
 
 import com.nchudinov.entity.Birthday;
+import com.nchudinov.entity.PersonalInfo;
 import com.nchudinov.entity.User;
 import org.junit.jupiter.api.Test;
 
@@ -42,10 +43,12 @@ class HibernateRunnerTest {
 	@Test
 	void checkReflectionApi() throws SQLException, IllegalAccessException {
 		User user = User.builder()
-				.username("Max")
-				.firstname("Maximov")
-				.lastname("Maximovich")
-				.birthDate(new Birthday(LocalDate.of(2000, 11, 11)))
+				.username("max")
+				.personalInfo(PersonalInfo.builder()
+						.firstname("Max")
+						.lastname("Maximov")
+						.birthDate(new Birthday(LocalDate.of(2000,01,01)))
+						.build())
 				.build();
 		
 		String sql = """
