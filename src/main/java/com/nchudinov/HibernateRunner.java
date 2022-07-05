@@ -39,11 +39,9 @@ public class HibernateRunner {
 								.build())
 						.company(company)
 						.build();
+				//session1.save(user);
 				
-				// ����� ���������� �������� ����� �������� ������������ ������ ����-�� �������� � ���-�� �������� ����
-				// ���� �� ���������� CASCADE!!!
-				session1.saveOrUpdate(user);
-				
+				session1.get(User.class, 1L);
 				session1.getTransaction().commit();
 			}
 			

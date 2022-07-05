@@ -1,9 +1,6 @@
 package com.nchudinov.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"company"})
 @Entity
 @Table(name = "users", schema = "public")
 public class User {
@@ -31,7 +29,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ManyToOne
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "company_id", referencedColumnName = "id")
 	private Company company;
 	
