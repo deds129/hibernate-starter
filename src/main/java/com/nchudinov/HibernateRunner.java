@@ -25,23 +25,22 @@ public class HibernateRunner {
 
 				// сначала сохраняем компанию
 				Company company = Company.builder()
-						.name("ProgPro")
+						.name("Amazon")
 						.build();
 				
-				session1.saveOrUpdate(company);
 				
 				User user = User.builder()
-						.username("max")
+						.username("IvanGrig")
 						.personalInfo(PersonalInfo.builder()
-								.firstname("Max")
-								.lastname("Maximov")
-								.birthDate(new Birthday(LocalDate.of(2000,01,01)))
+								.firstname("Oleg")
+								.lastname("Grigoriev")
+								.birthDate(new Birthday(LocalDate.of(1998,12,1)))
 								.build())
 						.company(company)
 						.build();
-				//session1.save(user);
+				session1.save(user);
+				//session1.get(User.class, 1L);
 				
-				session1.get(User.class, 1L);
 				session1.getTransaction().commit();
 			}
 			

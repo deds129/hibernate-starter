@@ -29,7 +29,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
 	@JoinColumn(name = "company_id", referencedColumnName = "id")
 	private Company company;
 	
