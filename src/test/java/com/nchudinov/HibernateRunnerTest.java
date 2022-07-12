@@ -1,28 +1,38 @@
 package com.nchudinov;
 
 import com.nchudinov.entity.Birthday;
+import com.nchudinov.entity.Company;
 import com.nchudinov.entity.PersonalInfo;
 import com.nchudinov.entity.User;
+import com.nchudinov.util.HibernateUtil;
+import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
-import javax.xml.transform.Result;
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
-import static org.junit.jupiter.api.Assertions.*;
 
 class HibernateRunnerTest {
+	
+	@Test
+	void oneToMany() {
+		//закрываем ресурсы без try-catch
+		@Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+		@Cleanup var session = sessionFactory.openSession();
+		var company = session.get(Company.class,1);
+		System.out.println(company);
+	}
 	
 	@Test
 	void checkGetReflection() throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {

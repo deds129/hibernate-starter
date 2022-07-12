@@ -27,7 +27,7 @@ public class HibernateRunner {
 				Company company = Company.builder()
 						.name("Amazon")
 						.build();
-				
+				session1.save(company);
 				
 				User user = User.builder()
 						.username("IvanGrig")

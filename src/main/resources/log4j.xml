@@ -28,7 +28,7 @@
 	</appender>
 
 	<logger name="com.nchudinov" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
 		<appender-ref ref="console"/>
 	</logger>
 
