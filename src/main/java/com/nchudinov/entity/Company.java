@@ -3,13 +3,15 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "users")
+@EqualsAndHashCode(of = "username")
+@ToString(exclude = "company")
 @Builder
 @Entity
 @Table(name = "company", schema = "public")
@@ -22,10 +24,14 @@ public class Company {
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-	private Set<User> users;
+	@Builder.Default
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy = "company",
+			fetch = FetchType.EAGER)
+	private Set<User> users = new HashSet<>();
 	
-	//@JoinColumn(name = "company_id")
-	//private List<User> userList;
-	
+	public void addUser(User user) {
+		user.setCompany(this);
+		users.add(user);
+	}
 }

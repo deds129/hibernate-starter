@@ -6,6 +6,8 @@ import com.nchudinov.entity.PersonalInfo;
 import com.nchudinov.entity.User;
 import com.nchudinov.util.HibernateUtil;
 import lombok.Cleanup;
+import org.hibernate.Hibernate;
+import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
@@ -24,6 +26,51 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
+	
+	@Test
+	void checkLazyInitialization() {
+		Company company = null;
+		try ( var sessionFactory = HibernateUtil.buildSessionFactory();
+			  var session = sessionFactory.openSession()) {
+
+			Transaction transaction = session.beginTransaction();
+			company = session.get(Company.class,1);
+
+			transaction.commit();
+		}
+
+		var	users = company.getUsers();
+		System.out.println(users.size());
+		
+	}
+	
+	@Test
+	void addUserToNewCompany(){
+		//закрываем ресурсы без try-catch
+		@Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+		@Cleanup var session = sessionFactory.openSession();
+//		var company = Company.builder()
+//					.name("FaceBook")
+//						.build();
+
+		User user = User.builder()
+				.username("newUser")
+				.personalInfo(PersonalInfo.builder()
+						.firstname("Olga")
+						.lastname("Bobova")
+						.birthDate(new Birthday(LocalDate.of(1988,12,1)))
+						.build())
+				.build();
+		session.beginTransaction();
+		//сохраняется компания, затем пользователь
+		Company company = session.get(Company.class, 1);
+		company.addUser(user);
+		
+		//session.save(company);
+		
+		session.getTransaction().commit();
+		System.out.println(company);
+	}
 	
 	@Test
 	void oneToMany() {
