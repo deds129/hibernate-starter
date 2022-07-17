@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"company"})
+@ToString(exclude = {"company", "profile"})
 @Entity
 @Table(name = "users", schema = "public")
 public class User {
@@ -29,8 +29,11 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id", referencedColumnName = "id")
 	private Company company;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private Profile profile;
 	
 }

@@ -27,7 +27,8 @@ public class Company {
 	@Builder.Default
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy = "company",
-			fetch = FetchType.EAGER)
+			fetch = FetchType.LAZY,
+	orphanRemoval = true)
 	private Set<User> users = new HashSet<>();
 	
 	public void addUser(User user) {

@@ -1,5 +1,6 @@
 DROP table  if exists users;
 DROP table  if exists company;
+DROP table  if exists profile;
 
 create table company
 (
@@ -17,4 +18,14 @@ create table users
     role varchar(32),
     company_id int references company(id)
 );
+
+
+CREATE TABLE profile
+(
+    user_id BIGINT PRIMARY KEY REFERENCES users (id),
+    street VARCHAR(128),
+    language CHAR(2)
+);
+
+
 

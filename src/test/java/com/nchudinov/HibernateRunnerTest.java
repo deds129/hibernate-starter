@@ -7,6 +7,8 @@ import com.nchudinov.entity.User;
 import com.nchudinov.util.HibernateUtil;
 import lombok.Cleanup;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +28,44 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
+
+	@Test
+	void checkOneToOne() {
+		try (var sessionFactory = HibernateUtil.buildSessionFactory();
+			 var session = sessionFactory.openSession()) {
+			session.beginTransaction();
+
+			var user = session.get(User.class, 9L);
+			System.out.println();
+
+//            var user = User.builder()
+//                    .username("test2@gmail.com")
+//                    .build();
+//            var profile = Profile.builder()
+//                    .language("ru")
+//                    .street("Kolasa 18")
+//                    .build();
+//
+//            session.save(user);
+//            profile.setUser(user);
+//            session.save(profile);
+
+			session.getTransaction().commit();
+		}
+	}
+
+	@Test
+	void checkOrphanRemoval() {
+		try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+			 Session session = sessionFactory.openSession()) {
+
+			session.beginTransaction();
+			Company company = session.getReference(Company.class, 1); //получаем прокcи-объект
+			company.getUsers().removeIf(user -> user.getId().equals(1L));
+
+			session.getTransaction().commit();
+		}
+	}
 	
 	@Test
 	void checkLazyInitialization() {
