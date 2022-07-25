@@ -20,6 +20,8 @@
 		<mapping class="com.nchudinov.entity.User"/>
 		<mapping class="com.nchudinov.entity.Company"/>
 		<mapping class="com.nchudinov.entity.Profile"/>
+		<mapping class="com.nchudinov.entity.Chat"/>
+		<mapping class="com.nchudinov.entity.UsersChat"/>
 
 	</session-factory>
 </hibernate-configuration>

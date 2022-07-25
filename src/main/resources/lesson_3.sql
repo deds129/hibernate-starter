@@ -1,9 +1,8 @@
+DROP table  if exists users_chat;
 DROP table  if exists profile;
 DROP table  if exists users;
 DROP table  if exists company;
 DROP table  if exists chat;
-DROP table  if exists chat;
-DROP table  if exists users_chat;
 
 create table company
 (
@@ -29,9 +28,11 @@ create table chat (
 
 create table users_chat
 (
+    id BIGSERIAL primary key,
     user_id bigint references users (id),
     chat_id bigint references chat (id),
-    primary key (user_id, chat_id)
+    created_at timestamp not null,
+    created_by varchar(64) not null
 );
 
 

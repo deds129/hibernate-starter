@@ -3,14 +3,14 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data //generate equals + hashCode etc.
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"company", "profile"})
+@ToString(exclude = {"company", "profile", "usersChats"})
 @Entity
 @Table(name = "users", schema = "public")
 public class User {
@@ -42,6 +42,11 @@ public class User {
 	private Profile profile;
 
 
-	@ManyToMany()
-	private List<Chat> chats = new ArrayList<>();
+	@Builder.Default
+	@OneToMany(mappedBy = "user") // ссылка на user в сущности UserChat
+//	@JoinTable(name = "users_chat", // связующая таблица
+//			joinColumns = @JoinColumn(name = "user_id"), // колонка связанная с объектами данного кдасса
+//			inverseJoinColumns = @JoinColumn(name = "chat_id")) //связанная сущность
+	private Set<UsersChat> usersChats = new HashSet<>();
+	
 }

@@ -1,15 +1,14 @@
 package com.nchudinov.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"id", "user"})
+@ToString(of = {"street", "language"}) 
 @Builder
 @Entity
 public class Profile {

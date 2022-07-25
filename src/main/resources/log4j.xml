@@ -15,7 +15,7 @@
 		<param name="file" value="logs/hibernate-starter.log"/>
 
 		<param name="append" value="true"/>
-		<param name="maxFileSize" value="1КB"/>
+		<param name="maxFileSize" value="1KB"/>
 		<param name="maxBackupIndex" value="10"/>
 
 		<layout class="org.apache.log4j.PatternLayout">
@@ -23,17 +23,17 @@
 		</layout>
 
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="ALL"/>
+			<param name="LevelMin" value="DEBUG"/>
 		</filter>
 	</appender>
 
 	<logger name="com.nchudinov" additivity="false">
-		<level value="info"/>
+		<level value="debug"/>
 		<appender-ref ref="console"/>
 	</logger>
 
 	<root>
-		<level value="trace"/>
+		<level value="debug"/>
 		<appender-ref ref="console"/>
 		<appender-ref ref="file"/>
 	</root>

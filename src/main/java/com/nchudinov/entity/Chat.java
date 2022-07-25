@@ -1,18 +1,17 @@
 package com.nchudinov.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "name") // исключаем зацикливание
+@ToString(exclude = "chatUsers") // исключаем зацикливание
 @Builder
 @Entity
 @Table(name = "chat", schema = "public")
@@ -26,6 +25,7 @@ public class Chat {
 	@Column(name = "name")
 	private String name;
 	
-	@ManyToMany
-	private List<User> users = new ArrayList<>();
+	@Builder.Default // для создания объекта с помощью Builder
+	@OneToMany(mappedBy = "chat") //таблица сущности read-only
+	private Set<UsersChat> chatUsers = new HashSet<>();
 }
