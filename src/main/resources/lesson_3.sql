@@ -1,6 +1,9 @@
+DROP table  if exists profile;
 DROP table  if exists users;
 DROP table  if exists company;
-DROP table  if exists profile;
+DROP table  if exists chat;
+DROP table  if exists chat;
+DROP table  if exists users_chat;
 
 create table company
 (
@@ -19,13 +22,24 @@ create table users
     company_id int references company(id)
 );
 
+create table chat (
+    id BIGSERIAL primary key,
+    name varchar(64) not null unique
+);
 
-CREATE TABLE profile
+create table users_chat
 (
-    user_id BIGINT PRIMARY KEY REFERENCES users (id),
-    street VARCHAR(128),
-    language CHAR(2)
+    user_id bigint references users (id),
+    chat_id bigint references chat (id),
+    primary key (user_id, chat_id)
 );
 
 
 
+CREATE TABLE profile
+(
+    id BIGSERIAL primary key,
+    user_id BIGINT not null unique REFERENCES users (id) ,
+    street VARCHAR(128),
+    language varchar(128)
+);

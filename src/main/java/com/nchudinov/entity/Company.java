@@ -10,8 +10,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "username")
-@ToString(exclude = "company")
+@EqualsAndHashCode(of = "name")
+@ToString(exclude = "users")
 @Builder
 @Entity
 @Table(name = "company", schema = "public")

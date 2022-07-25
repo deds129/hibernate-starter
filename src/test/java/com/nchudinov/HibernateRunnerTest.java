@@ -1,9 +1,6 @@
 package com.nchudinov;
 
-import com.nchudinov.entity.Birthday;
-import com.nchudinov.entity.Company;
-import com.nchudinov.entity.PersonalInfo;
-import com.nchudinov.entity.User;
+import com.nchudinov.entity.*;
 import com.nchudinov.util.HibernateUtil;
 import lombok.Cleanup;
 import org.hibernate.Hibernate;
@@ -35,20 +32,17 @@ class HibernateRunnerTest {
 			 var session = sessionFactory.openSession()) {
 			session.beginTransaction();
 
-			var user = session.get(User.class, 9L);
-			System.out.println();
-
-//            var user = User.builder()
-//                    .username("test2@gmail.com")
-//                    .build();
-//            var profile = Profile.builder()
-//                    .language("ru")
-//                    .street("Kolasa 18")
-//                    .build();
-//
-//            session.save(user);
-//            profile.setUser(user);
-//            session.save(profile);
+            var user = User.builder()
+                    .username("test24gmail.com")
+                    .build();
+            var profile = Profile.builder()
+                    .language("ru")
+                    .street("Kolasa 18")
+                    .build();
+			profile.setUser(user);
+			
+            session.save(user);
+            
 
 			session.getTransaction().commit();
 		}

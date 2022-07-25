@@ -3,6 +3,8 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data //generate equals + hashCode etc.
 @NoArgsConstructor
@@ -33,7 +35,13 @@ public class User {
 	@JoinColumn(name = "company_id", referencedColumnName = "id")
 	private Company company;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user",
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			optional = false)
 	private Profile profile;
-	
+
+
+	@ManyToMany()
+	private List<Chat> chats = new ArrayList<>();
 }
