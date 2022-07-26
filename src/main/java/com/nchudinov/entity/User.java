@@ -3,8 +3,8 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data //generate equals + hashCode etc.
 @NoArgsConstructor
@@ -47,6 +47,6 @@ public class User {
 //	@JoinTable(name = "users_chat", // связующая таблица
 //			joinColumns = @JoinColumn(name = "user_id"), // колонка связанная с объектами данного кдасса
 //			inverseJoinColumns = @JoinColumn(name = "chat_id")) //связанная сущность
-	private Set<UsersChat> usersChats = new HashSet<>();
+	private List<UsersChat> usersChats = new ArrayList<>();
 	
 }

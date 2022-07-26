@@ -4,7 +4,9 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -27,5 +29,5 @@ public class Chat {
 	
 	@Builder.Default // для создания объекта с помощью Builder
 	@OneToMany(mappedBy = "chat") //таблица сущности read-only
-	private Set<UsersChat> chatUsers = new HashSet<>();
+	private List<UsersChat> chatUsers = new ArrayList<>();
 }

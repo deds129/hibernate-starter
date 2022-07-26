@@ -32,7 +32,8 @@ create table users_chat
     user_id bigint references users (id),
     chat_id bigint references chat (id),
     created_at timestamp not null,
-    created_by varchar(64) not null
+    created_by varchar(64) not null,
+    unique (user_id, chat_id)
 );
 
 

@@ -3,6 +3,7 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class Company {
 			mappedBy = "company",
 			fetch = FetchType.LAZY,
 	orphanRemoval = true)
-	private Set<User> users = new HashSet<>();
+	private List<User> users = new ArrayList<>();
 	
 	public void addUser(User user) {
 		user.setCompany(this);
