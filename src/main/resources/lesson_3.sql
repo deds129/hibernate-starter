@@ -21,6 +21,14 @@ create table users
     company_id int references company(id)
 );
 
+create table company_locale
+(
+    company_id int not null references company(id),
+    lang varchar(3) not null,
+    description varchar(128) not null,
+    primary key (company_id, lang)
+);
+
 create table chat (
     id BIGSERIAL primary key,
     name varchar(64) not null unique

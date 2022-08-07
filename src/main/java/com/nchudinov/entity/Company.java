@@ -4,9 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +29,14 @@ public class Company {
 			fetch = FetchType.LAZY,
 	orphanRemoval = true)
 	private List<User> users = new ArrayList<>();
+	
+	@Builder.Default
+	@ElementCollection //default - company_locales
+	@CollectionTable(name = "company_locale", joinColumns = @JoinColumn(name = "company_id"))
+	//@AttributeOverride(name = "lang", column = @Column(name = "language")) // если бы были другие зазвания в базе
+	
+	//@Column(name = "description") // если вставляем только поле description - только чтение
+	private List<LocaleInfo> locales = new ArrayList<>();
 	
 	public void addUser(User user) {
 		user.setCompany(this);

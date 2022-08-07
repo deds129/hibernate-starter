@@ -8,7 +8,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(of = {"createdAt", "created_by" })
+@ToString(of = {"createdAt", "createdBy" })
 @EqualsAndHashCode(of = {"createdAt", "createdBy" })
 @Builder
 @Entity
