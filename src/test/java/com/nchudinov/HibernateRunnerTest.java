@@ -35,8 +35,8 @@ class HibernateRunnerTest {
 			session.beginTransaction();
 
 			Company company = session.get(Company.class, 1);
-			company.getLocales().add(LocaleInfo.of("ru", "Описание на русском"));
-			company.getLocales().add(LocaleInfo.of("en", "English description"));
+			
+			company.getUsers().forEach((k,v) -> System.err.println(k + " : " + v));
 			session.getTransaction().commit();
 		}
 	}
@@ -91,7 +91,7 @@ class HibernateRunnerTest {
 
 			session.beginTransaction();
 			Company company = session.getReference(Company.class, 1); //получаем прокcи-объект
-			company.getUsers().removeIf(user -> user.getId().equals(1L));
+		//	company.getUsers().removeIf(user -> user.getId().equals(1L));
 
 			session.getTransaction().commit();
 		}

@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -25,10 +27,10 @@ public class Company {
 	
 	@Builder.Default
 	@OneToMany(cascade = CascadeType.ALL,
-			mappedBy = "company",
-			fetch = FetchType.LAZY,
-	orphanRemoval = true)
-	private List<User> users = new ArrayList<>();
+			mappedBy = "company", orphanRemoval = true)
+	//@OrderBy("username DESC, personalInfo.lastname ASC")
+	@MapKey(name = "username")
+	private Map<String, User> users = new HashMap<>();
 	
 	@Builder.Default
 	@ElementCollection //default - company_locales
@@ -40,6 +42,6 @@ public class Company {
 	
 	public void addUser(User user) {
 		user.setCompany(this);
-		users.add(user);
+		users.put(user.getUsername(), user);
 	}
 }
