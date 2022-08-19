@@ -3,9 +3,7 @@ package com.nchudinov.converter;
 import com.nchudinov.entity.Birthday;
 
 import javax.persistence.AttributeConverter;
-import javax.persistence.Convert;
 import javax.persistence.Converter;
-
 import java.sql.Date;
 import java.util.Optional;
 

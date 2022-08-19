@@ -1,6 +1,7 @@
 package com.nchudinov.entity;
 
 import lombok.*;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Company {
 			mappedBy = "company", orphanRemoval = true)
 	//@OrderBy("username DESC, personalInfo.lastname ASC")
 	@MapKey(name = "username")
+	//@SortNatural
 	private Map<String, User> users = new HashMap<>();
 	
 	@Builder.Default
@@ -38,6 +40,10 @@ public class Company {
 	//@AttributeOverride(name = "lang", column = @Column(name = "language")) // если бы были другие зазвания в базе
 	
 	//@Column(name = "description") // если вставляем только поле description - только чтение
+	/*
+	@MapKeyColumn(name = "lang")
+	private Map<String, String> locales = new HashMap<>();
+	 */
 	private List<LocaleInfo> locales = new ArrayList<>();
 	
 	public void addUser(User user) {

@@ -39,6 +39,11 @@ dependencies {
     
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    
+    //in memory db for tests
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    testImplementation 'com.h2database:h2:2.1.214'
+
 }
 
 test {
