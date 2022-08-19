@@ -13,7 +13,7 @@ import java.util.List;
 @ToString(exclude = {"company", "profile", "usersChats"})
 @Entity
 @Table(name = "users", schema = "public")
-public class User {
+public class User implements BaseEntity<Long> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

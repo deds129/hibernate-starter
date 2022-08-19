@@ -3,7 +3,6 @@ package com.nchudinov.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -13,10 +12,10 @@ import java.time.Instant;
 @Builder
 @Entity
 @Table(name = "users_chat")
-public class UsersChat {
+public class UsersChat extends AuditableEntity<Long> {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -26,12 +25,6 @@ public class UsersChat {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
-
-	@Column(name = "created_at", nullable = false)
-	private Instant createdAt;
-
-	@Column(name = "created_by", nullable = false, length = 64)
-	private String createdBy;
 	
 	public  void setUser(User user) {
 		this.user = user;
