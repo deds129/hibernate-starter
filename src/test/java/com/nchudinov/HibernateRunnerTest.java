@@ -1,6 +1,7 @@
 package com.nchudinov;
 
 import com.nchudinov.entity.*;
+import com.nchudinov.util.HibernateTestUtil;
 import com.nchudinov.util.HibernateUtil;
 import lombok.Cleanup;
 import org.hibernate.Hibernate;
@@ -28,8 +29,8 @@ import static java.util.stream.Collectors.joining;
 class HibernateRunnerTest {
 
 	@Test
-	void checkH2() {
-		try (var sessionFactory = HibernateUtil.buildSessionFactory();
+	void checkDockerPostgres() {
+		try (var sessionFactory = HibernateTestUtil.buildSessionFactory();
 			 var session = sessionFactory.openSession()) {
 			session.beginTransaction();
 

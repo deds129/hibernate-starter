@@ -42,7 +42,12 @@ dependencies {
     
     //in memory db for tests
     // https://mvnrepository.com/artifact/com.h2database/h2
-    testImplementation 'com.h2database:h2:2.1.214'
+    //testImplementation 'com.h2database:h2:2.1.214'
+
+    // use testcontainers for tests
+    // https://mvnrepository.com/artifact/org.testcontainers/postgresql
+    testImplementation 'org.testcontainers:postgresql:1.17.3'
+
 
 }
 
