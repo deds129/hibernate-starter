@@ -20,7 +20,7 @@ import java.util.Map;
 public class Company {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO) //Auto for H2
 	private Integer id;
 	
 	@Column(name = "name")
