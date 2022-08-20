@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(of = {"createdAt", "createdBy" })
-@EqualsAndHashCode(of = {"createdAt", "createdBy" })
+@ToString(of = {"id"})
+@EqualsAndHashCode(of = {"id"})
 @Builder
 @Entity
 @Table(name = "users_chat")
@@ -26,7 +26,7 @@ public class UsersChat extends AuditableEntity<Long> {
 	@JoinColumn(name = "chat_id")
 	private Chat chat;
 	
-	public  void setUser(User user) {
+	public void setUser(User user) {
 		this.user = user;
 		this.user.getUsersChats().add(this);
 	}

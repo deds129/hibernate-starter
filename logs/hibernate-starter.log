@@ -1,3 +1,4 @@
-[2022-08-19 13:09:05,329] DEBUG [org.hibernate.service.internal.AbstractServiceRegistryImpl: 419] Implicitly destroying ServiceRegistry on de-registration of all child ServiceRegistries
-[2022-08-19 13:09:05,330] INFO [org.hibernate.orm.connections.pooling: 502] HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:54021/test?loggerLevel=OFF]
-[2022-08-19 13:09:05,331] DEBUG [org.hibernate.boot.registry.internal.BootstrapServiceRegistryImpl: 295] Implicitly destroying Boot-strap registry on de-registration of all child ServiceRegistries
+[2022-08-20 15:22:26,790] DEBUG [org.hibernate.type.spi.TypeConfiguration$Scope: 345] Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@63056e5d] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@416f0fc7]
+[2022-08-20 15:22:26,791] DEBUG [org.hibernate.service.internal.AbstractServiceRegistryImpl: 419] Implicitly destroying ServiceRegistry on de-registration of all child ServiceRegistries
+[2022-08-20 15:22:26,791] INFO [org.hibernate.orm.connections.pooling: 502] HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:58544/test?loggerLevel=OFF]
+[2022-08-20 15:22:26,792] DEBUG [org.hibernate.boot.registry.internal.BootstrapServiceRegistryImpl: 295] Implicitly destroying Boot-strap registry on de-registration of all child ServiceRegistries

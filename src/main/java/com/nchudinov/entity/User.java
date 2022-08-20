@@ -9,14 +9,13 @@ import java.util.List;
 @Data //generate equals + hashCode etc.
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString(exclude = {"company", "profile", "usersChats"})
 @Entity
-@Table(name = "users", schema = "public")
-public class User implements BaseEntity<Long> {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User implements BaseEntity<Long> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
 	@Embedded
@@ -37,12 +36,10 @@ public class User implements BaseEntity<Long> {
 
 	@OneToOne(mappedBy = "user",
 			cascade = CascadeType.ALL,
-			fetch = FetchType.LAZY,
-			optional = false)
+			fetch = FetchType.LAZY)
 	private Profile profile;
 
-
-	@Builder.Default
+	
 	@OneToMany(mappedBy = "user") // ссылка на user в сущности UserChat
 //	@JoinTable(name = "users_chat", // связующая таблица
 //			joinColumns = @JoinColumn(name = "user_id"), // колонка связанная с объектами данного кдасса

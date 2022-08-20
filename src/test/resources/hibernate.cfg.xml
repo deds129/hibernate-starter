@@ -27,6 +27,8 @@
 		<property name="hbm2ddl.auto">create</property>
 		
 		<mapping class="com.nchudinov.entity.User"/>
+		<mapping class="com.nchudinov.entity.Programmer"/>
+		<mapping class="com.nchudinov.entity.Manager"/>
 		<mapping class="com.nchudinov.entity.Company"/>
 		<mapping class="com.nchudinov.entity.Profile"/>
 		<mapping class="com.nchudinov.entity.Chat"/>
