@@ -20,7 +20,7 @@ public class Programmer extends User {
 	private Language language;
 
 	@Builder
-	public Programmer(Long id, PersonalInfo personalInfo, String username, Role role, Company company, Profile profile, List<UsersChat> usersChats, Language language) {
+	public Programmer(Long id, PersonalInfo personalInfo, String username, Role role, Company company, Profile profile, List<UserChat> usersChats, Language language) {
 		super(id, personalInfo, username, role, company, profile, usersChats);
 		this.language = language;
 	}

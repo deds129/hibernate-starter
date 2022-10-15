@@ -70,7 +70,17 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @OneToMany(mappedBy = "receiver")
     private List<Payment> payments = new ArrayList<>();
 
-    @Override
+	public User(Long id, PersonalInfo personalInfo, String username, Role role, Company company, Profile profile, List<UserChat> userChats) {
+		this.id = id;
+		this.personalInfo = personalInfo;
+		this.username = username;
+		this.role = role;
+		this.company = company;
+		this.profile = profile;
+		this.userChats = userChats;
+	}
+
+	@Override
     public int compareTo(User o) {
         return username.compareTo(o.username);
     }
