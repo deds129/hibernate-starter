@@ -1,13 +1,28 @@
 package com.nchudinov.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.SortNatural;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Data
 @NoArgsConstructor
@@ -16,38 +31,42 @@ import java.util.Map;
 @ToString(exclude = "users")
 @Builder
 @Entity
-@Table(name = "company", schema = "public")
 public class Company {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) //Auto for H2
-	private Integer id;
-	
-	@Column(name = "name")
-	private String name;
-	
-	@Builder.Default
-	@OneToMany(cascade = CascadeType.ALL,
-			mappedBy = "company", orphanRemoval = true)
-	//@OrderBy("username DESC, personalInfo.lastname ASC")
-	@MapKey(name = "username")
-	//@SortNatural
-	private Map<String, User> users = new HashMap<>();
-	
-	@Builder.Default
-	@ElementCollection //default - company_locales
-	@CollectionTable(name = "company_locale", joinColumns = @JoinColumn(name = "company_id"))
-	//@AttributeOverride(name = "lang", column = @Column(name = "language")) // если бы были другие зазвания в базе
-	
-	//@Column(name = "description") // если вставляем только поле description - только чтение
-	/*
-	@MapKeyColumn(name = "lang")
-	private Map<String, String> locales = new HashMap<>();
-	 */
-	private List<LocaleInfo> locales = new ArrayList<>();
-	
-	public void addUser(User user) {
-		user.setCompany(this);
-		users.put(user.getUsername(), user);
-	}
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @MapKey(name = "username")
+    @SortNatural
+    private Map<String, User> users = new TreeMap<>();
+
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(name = "company_locale", joinColumns = @JoinColumn(name = "company_id"))
+//    @AttributeOverride(name = "lang", column = @Column(name = "language"))
+//    private List<LocaleInfo> locales = new ArrayList<>();
+    @MapKeyColumn(name = "lang")
+    @Column(name = "description")
+    private Map<String, String> locales = new HashMap<>();
+
+    public void addUser(User user) {
+        users.put(user.getUsername(), user);
+        user.setCompany(this);
+    }
 }
+
+
+
+
+
+
+
+
+
+

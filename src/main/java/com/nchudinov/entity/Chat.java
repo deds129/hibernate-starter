@@ -1,33 +1,38 @@
 package com.nchudinov.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import lombok.*;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "name") // исключаем зацикливание
-@ToString(exclude = "chatUsers") // исключаем зацикливание
+@AllArgsConstructor
+@EqualsAndHashCode(of = "name")
+@ToString(exclude = "userChats")
 @Builder
 @Entity
-@Table(name = "chat", schema = "public")
 public class Chat {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
-	
-	@Column(name = "name")
-	private String name;
-	
-	@Builder.Default // для создания объекта с помощью Builder
-	@OneToMany(mappedBy = "chat") //таблица сущности read-only
-	private List<UsersChat> chatUsers = new ArrayList<>();
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "chat")
+    private List<UserChat> userChats = new ArrayList<>();
 }

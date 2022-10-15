@@ -10,9 +10,9 @@ import java.time.Instant;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class AuditableEntity<T extends Serializable> implements BaseEntity<T>{
-	
-	private Instant createdAt;
+public abstract class AuditableEntity<T extends Serializable> implements BaseEntity<T> {
 
-	private String createdBy;
+    private Instant createdAt;
+
+    private String createdBy;
 }

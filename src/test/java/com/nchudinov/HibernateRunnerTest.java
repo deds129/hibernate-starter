@@ -16,17 +16,17 @@ class HibernateRunnerTest {
 			//SQL
 			//select * from users
 			//select u.* from users u where u.firstName = 'Sasha'
-			
 			//all actions such as SQL, operate by object mapping
 			//HQL
-			String name = "nchudinov";
-			List<User> users = session
+			String name = "Amazon";
+			
+			List<Company> companies = session
 					.createQuery(
-							"select u from User u " +
-									"where u.username = :username", User.class)
-					.setParameter("username", name)
+							"select c from Company c " +
+									"where c.name = :companyName", Company.class)
+					.setParameter("companyName", name)
 					.list(); //invoke chain patten
-			users.forEach(user -> System.out.println(user.getUsername()));
+			companies.forEach(company1 -> System.err.println(company1.getName()));
 
 			session.getTransaction().commit();
 

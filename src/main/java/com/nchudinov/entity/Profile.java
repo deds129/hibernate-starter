@@ -1,32 +1,39 @@
 package com.nchudinov.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"id", "user"})
-@ToString(of = {"street", "language"}) 
 @Builder
 @Entity
 public class Profile {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-	private User user;
+    private User user;
 
-	private String street;
+    private String street;
 
-	private String language;
+    private String language;
 
-	public void setUser(User user) {
-		user.setProfile(this);
-		this.user = user;
-	}
+    public void setUser(User user) {
+        user.setProfile(this);
+        this.user = user;
+    }
 }
