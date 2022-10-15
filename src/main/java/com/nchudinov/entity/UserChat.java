@@ -3,37 +3,44 @@ package com.nchudinov.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Profile {
+@Table(name = "users_chat")
+public class UserChat extends AuditableEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User user;
 
-    private String street;
-
-    private String language;
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     public void setUser(User user) {
-        user.setProfile(this);
         this.user = user;
+        this.user.getUserChats().add(this);
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+        this.chat.getUserChats().add(this);
     }
 }

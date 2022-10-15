@@ -3,9 +3,9 @@ package com.nchudinov.entity;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public record Birthday(LocalDate birthday) {
-	
-	public long getAge() {
-		return ChronoUnit.YEARS.between(birthday, LocalDate.now());
-	}
+public record Birthday(LocalDate birthDate) {
+
+    public long getAge() {
+        return ChronoUnit.YEARS.between(birthDate, LocalDate.now());
+    }
 }
