@@ -69,7 +69,7 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @Builder.Default
     @OneToMany(mappedBy = "receiver")
     private List<Payment> payments = new ArrayList<>();
-
+	
 	public User(Long id, PersonalInfo personalInfo, String username, Role role, Company company, Profile profile, List<UserChat> userChats) {
 		this.id = id;
 		this.personalInfo = personalInfo;

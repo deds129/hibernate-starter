@@ -16,12 +16,11 @@
 		<property name="format_sql">true</property>
 
 		<mapping class="com.nchudinov.entity.User"/>
-		<mapping class="com.nchudinov.entity.Programmer"/>
-		<mapping class="com.nchudinov.entity.Manager"/>
 		<mapping class="com.nchudinov.entity.Company"/>
 		<mapping class="com.nchudinov.entity.Profile"/>
 		<mapping class="com.nchudinov.entity.Chat"/>
-		<mapping class="com.nchudinov.entity.UsersChat"/>
+		<mapping class="com.nchudinov.entity.UserChat"/>
+		<mapping class="com.nchudinov.entity.Payment"/>
 
 	</session-factory>
 </hibernate-configuration>
