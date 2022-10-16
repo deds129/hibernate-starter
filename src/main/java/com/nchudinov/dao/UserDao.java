@@ -18,28 +18,39 @@ public class UserDao {
      * Возвращает всех сотрудников
      */
     public List<User> findAll(Session session) {
-        return Collections.emptyList();
+        return session.createQuery("select u from User u", User.class)
+				.list();
     }
 
     /**
      * Возвращает всех сотрудников с указанным именем
      */
     public List<User> findAllByFirstName(Session session, String firstName) {
-        return Collections.emptyList();
+        return session.createQuery("select u from User u where u.personalInfo.firstname =: firstName", User.class)
+				.setParameter("firstName", firstName)
+				.list();
     }
 
     /**
      * Возвращает первые {limit} сотрудников, упорядоченных по дате рождения (в порядке возрастания)
      */
     public List<User> findLimitedUsersOrderedByBirthday(Session session, int limit) {
-        return Collections.emptyList();
+        return session.createQuery("select u from User u order by u.personalInfo.birthDate", User.class)
+				.setMaxResults(limit)
+				//.setHint(QueryHints.FETCH_SIZE, limit)
+				.list();
+				
     }
 
     /**
      * Возвращает всех сотрудников компании с указанным названием
      */
     public List<User> findAllByCompanyName(Session session, String companyName) {
-        return Collections.emptyList();
+		return session.createQuery("select u from Company c " +
+						" join c.users u " +
+						" where c.name = :compName", User.class)
+				.setParameter("compName", companyName)
+				.list();
     }
 
     /**
@@ -47,14 +58,25 @@ public class UserDao {
      * упорядоченные по имени сотрудника, а затем по размеру выплаты
      */
     public List<Payment> findAllPaymentsByCompanyName(Session session, String companyName) {
-        return Collections.emptyList();
+        return session.createQuery("select p from Payment p " +
+				" join p.receiver u " +
+				" join u.company c where c.name = :compName " +
+				" order by u.personalInfo.firstname, p.amount", Payment.class).list();
     }
 
     /**
      * Возвращает среднюю зарплату сотрудника с указанными именем и фамилией
      */
     public Double findAveragePaymentAmountByFirstAndLastNames(Session session, String firstName, String lastName) {
-        return Double.MAX_VALUE;
+        return session.createQuery("select avg(p.amount) from Payment p" +
+				//явный джоин
+				" join p.receiver u" +
+				" where u.personalInfo.firstname = :firstName" +
+				" and u.personalInfo.lastname = :lastName" ,Double.class)
+				.setParameter("firstName", firstName)
+				.setParameter("lastName", firstName)
+				.uniqueResult();
+		
     }
 
     /**
@@ -69,9 +91,19 @@ public class UserDao {
      * больше среднего размера выплат всех сотрудников
      * Упорядочить по имени сотрудника
      */
-    public List<Object[]> isItPossible(Session session) {
-        return Collections.emptyList();
-    }
+	/**
+	 * Возвращает список: сотрудник (объект User), средний размер выплат, но только для тех сотрудников, чей средний размер выплат
+	 * больше среднего размера выплат всех сотрудников
+	 * Упорядочить по имени сотрудника
+	 */
+	public List<Object[]> isItPossible(Session session) {
+		return session.createQuery("select u, avg(p.amount) from User u " +
+						"join u.payments p " +
+						"group by u " +
+						"having avg(p.amount) > (select avg(p.amount) from Payment p) " +
+						"order by u.personalInfo.firstname", Object[].class)
+				.list();
+	}
 
     public static UserDao getInstance() {
         return INSTANCE;

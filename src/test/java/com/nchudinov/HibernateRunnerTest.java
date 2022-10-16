@@ -2,8 +2,10 @@ package com.nchudinov;
 
 import com.nchudinov.entity.*;
 import com.nchudinov.util.HibernateTestUtil;
+import org.hibernate.annotations.QueryHints;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.FlushModeType;
 import java.util.List;
 
 class HibernateRunnerTest {
@@ -25,6 +27,8 @@ class HibernateRunnerTest {
 							"select c from Company c " +
 									"where c.name = :companyName", Company.class)
 					.setParameter("companyName", name)
+					.setFlushMode(FlushModeType.COMMIT)
+					.setHint(QueryHints.FETCH_SIZE, "50") // count of objects
 					.list(); //invoke chain patten
 			companies.forEach(company1 -> System.err.println(company1.getName()));
 
