@@ -24,7 +24,7 @@ import static com.nchudinov.util.StringUtils.SPACE;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile", "userChats", "payments"})
+@ToString(exclude = {"company", "userChats", "payments"})
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
@@ -55,12 +55,12 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @JoinColumn(name = "company_id") // company_id
     private Company company;
 
-    @OneToOne(
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    private Profile profile;
+//    @OneToOne(
+//            mappedBy = "user",
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY
+//    )
+//    private Profile profile;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
@@ -69,16 +69,6 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @Builder.Default
     @OneToMany(mappedBy = "receiver")
     private List<Payment> payments = new ArrayList<>();
-	
-	public User(Long id, PersonalInfo personalInfo, String username, Role role, Company company, Profile profile, List<UserChat> userChats) {
-		this.id = id;
-		this.personalInfo = personalInfo;
-		this.username = username;
-		this.role = role;
-		this.company = company;
-		this.profile = profile;
-		this.userChats = userChats;
-	}
 
 	@Override
     public int compareTo(User o) {

@@ -53,7 +53,6 @@ public class UserDao {
 		return session.createQuery(cbQuery)
 				.list();
 		
-		
     }
 
     /**
