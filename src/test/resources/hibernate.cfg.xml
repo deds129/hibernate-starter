@@ -4,16 +4,12 @@
 
 <hibernate-configuration>
 	<session-factory>
+		<property name="connection.driver_class">org.postgresql.Driver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
-		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.username">postgres</property>
-		<property name="hibernate.connection.password">postgres</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5433/postgres</property>
-		
-		<property name="connection_pool_size">1</property>
-
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
+		<!-- DB schema will be updated if needed -->
+		<property name="hibernate.hbm2ddl.auto">create</property>
 
 		<mapping class="com.nchudinov.entity.User"/>
 		<mapping class="com.nchudinov.entity.Company"/>
