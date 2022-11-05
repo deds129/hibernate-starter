@@ -12,21 +12,22 @@ import java.sql.SQLException;
 @Slf4j
 public class HibernateRunner {
 
-    public static void main(String[] args) throws SQLException {
-       
-        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
-			Session session = sessionFactory.openSession()) {
+	public static void main(String[] args) throws SQLException {
+		try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+			 Session session = sessionFactory.openSession()) {
+			session.beginTransaction();
 
-			User user = session.get(User.class, 1L);
+//            var user = session.get(User.class, 1L);
+//            System.out.println(user.getPayments().size());
+//            System.out.println(user.getCompany().getName());
+			var users = session.createQuery("select u from User u", User.class)
+					.list();
+			users.forEach(user -> System.out.println(user.getPayments().size()));
+			users.forEach(user -> System.out.println(user.getCompany().getName()));
 
-			System.out.println(user.getUsername());
-			
 			session.getTransaction().commit();
-        } catch (RuntimeException e) {
-			log.error(e.getMessage());
-			e.printStackTrace();
 		}
-    }
+	}
 
 
 
