@@ -18,6 +18,11 @@ import java.util.List;
 
 import static com.nchudinov.util.StringUtils.SPACE;
 
+@FetchProfile(name = "withCompany", fetchOverrides = {
+		@FetchProfile.FetchOverride(
+				entity = User.class, association = "company", mode = FetchMode.JOIN
+		)
+})
 @NamedQuery(name = "findUserByName", query = "select u from User u " +
         "left join u.company c " +
         "where u.personalInfo.firstname = :firstname and c.name = :companyName " +
@@ -69,7 +74,6 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     private List<UserChat> userChats = new ArrayList<>();
 
     @Builder.Default
-	@Fetch(FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "receiver")
     private List<Payment> payments = new ArrayList<>();
 
