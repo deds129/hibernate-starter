@@ -18,11 +18,16 @@ import java.util.List;
 
 import static com.nchudinov.util.StringUtils.SPACE;
 
-@FetchProfile(name = "withCompany", fetchOverrides = {
-		@FetchProfile.FetchOverride(
-				entity = User.class, association = "company", mode = FetchMode.JOIN
-		)
-})
+@NamedEntityGraph(
+					name = "withComanyAndChat",
+					attributeNodes = {
+							@NamedAttributeNode("company"),
+							@NamedAttributeNode(value = "userChats", subgraph = "chats")
+							},
+		subgraphs = {
+				@NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))
+		}
+)
 @NamedQuery(name = "findUserByName", query = "select u from User u " +
         "left join u.company c " +
         "where u.personalInfo.firstname = :firstname and c.name = :companyName " +
