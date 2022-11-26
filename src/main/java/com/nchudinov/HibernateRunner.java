@@ -1,48 +1,39 @@
 package com.nchudinov;
 
-import com.nchudinov.entity.User;
-import com.nchudinov.entity.UserChat;
+import com.nchudinov.entity.Payment;
 import com.nchudinov.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.graph.GraphSemantic;
-import org.hibernate.graph.RootGraph;
-import org.hibernate.graph.SubGraph;
+import org.hibernate.jpa.QueryHints;
 
+import javax.persistence.QueryHint;
+import javax.transaction.Transactional;
 import java.sql.SQLException;
-import java.util.Map;
 
 @Slf4j
 public class HibernateRunner {
 
+	@Transactional
 	public static void main(String[] args) throws SQLException {
 		try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 			 Session session = sessionFactory.openSession()) {
-			 session.beginTransaction();
-			RootGraph<User> entityGraph = session.createEntityGraph(User.class);
-			entityGraph.addAttributeNodes("company", "userChats");
 			
-			SubGraph<UserChat> subGraph = entityGraph.addSubgraph("userChats", UserChat.class);
-			subGraph.addAttributeNodes("chat");
-
-			Map<String, Object> properties = Map.of(GraphSemantic.LOAD.getJpaHintName(), entityGraph);
-
-			var user = session.find(User.class, 1L, properties);
-			System.out.println(user.getUserChats().size());
+			// 0 - нативный способ
+			session.createNativeQuery("set transaction read only").executeUpdate();
+			
+			// 1
+			session.setDefaultReadOnly(true);
+			session.beginTransaction();
+			var payment = session.createQuery("select p from Payment p", Payment.class)
+					// 2
+							.setReadOnly(true) //предпочтительный способ
+					// 3
+									.setHint(QueryHints.HINT_READONLY, true);
+			// 4
+			session.setReadOnly(payment, true);
 			session.getTransaction().commit();
+
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 }
