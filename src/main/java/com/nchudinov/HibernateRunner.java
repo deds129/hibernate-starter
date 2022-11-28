@@ -23,16 +23,15 @@ public class HibernateRunner {
 			session.beginTransaction();
 			session2.beginTransaction();
 			
-			//Optimistic lock
-			var payment = session.find(Payment.class, 1L, LockModeType.OPTIMISTIC);
+			//Pessimistic lock
+			var payment = session.find(Payment.class, 1L, LockModeType.PESSIMISTIC_READ);
 			payment.setAmount(payment.getAmount() * 2);
-			
-			var payment2 = session.find(Payment.class, 1L, LockModeType.OPTIMISTIC);
-			payment2.setAmount(payment2.getAmount() * 30);
 
-			session.getTransaction().commit();
+			var payment2 = session.find(Payment.class, 1L);
+			payment2.setAmount(payment2.getAmount() + 111);
+
 			session2.getTransaction().commit();
-
+			session.getTransaction().commit();
 		}
 	}
 }

@@ -15,16 +15,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@OptimisticLocking(type = OptimisticLockType.ALL)
-@DynamicUpdate
 public class Payment implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-//	@Version
-//	private Long version;
 
     @Column(nullable = false)
     private Integer amount;
