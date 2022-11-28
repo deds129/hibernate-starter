@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
@@ -14,15 +15,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@OptimisticLocking(type = OptimisticLockType.VERSION)
+@OptimisticLocking(type = OptimisticLockType.ALL)
+@DynamicUpdate
 public class Payment implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@Version
-	private Long version;
+//	@Version
+//	private Long version;
 
     @Column(nullable = false)
     private Integer amount;
