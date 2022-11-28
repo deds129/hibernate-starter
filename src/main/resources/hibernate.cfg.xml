@@ -15,7 +15,7 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 		<!-- DB schema will be updated if needed -->
-		<property name="hibernate.hbm2ddl.auto">validate</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 
 		<!-- Transaction isolation level, available values: 1,2(default - read-commited),4,8-->
 		<!--property name="hibernate.connection.isolation">1</property-->
