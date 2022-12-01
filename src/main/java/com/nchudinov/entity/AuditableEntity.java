@@ -15,4 +15,8 @@ public abstract class AuditableEntity<T extends Serializable> implements BaseEnt
     private Instant createdAt;
 
     private String createdBy;
+
+	private Instant updatedAt;
+
+	private String updatedBy;
 }
