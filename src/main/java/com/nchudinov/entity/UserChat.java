@@ -1,5 +1,6 @@
 package com.nchudinov.entity;
 
+import com.nchudinov.listeners.UserChatListener;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "users_chat")
+@EntityListeners(UserChatListener.class)
 public class UserChat extends AuditableEntity<Long> {
 
     @Id

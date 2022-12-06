@@ -13,7 +13,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Payment extends  AuditableEntity<Long> {
+public class Payment extends AuditableEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +27,4 @@ public class Payment extends  AuditableEntity<Long> {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 	
-	//Перед сохранением сущности
-	@PrePersist 
-	public void prePersist() {
-		setCreatedAt(Instant.now());
-		//setCreatedBy(SecurityContext.getUser());
-	}
-	
-	//перед обновлением
-	@PreUpdate
-	public void preUpdate() {
-		setUpdatedAt(Instant.now());
-	}
 }

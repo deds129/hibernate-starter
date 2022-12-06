@@ -31,6 +31,10 @@ public class Chat {
 
     @Column(nullable = false, unique = true)
     private String name;
+	
+	//Using ListenerCallback for de-normalization
+	@Builder.Default
+	private Integer count = 0;
 
     @Builder.Default
     @OneToMany(mappedBy = "chat")
