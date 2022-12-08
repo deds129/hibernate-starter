@@ -1,6 +1,6 @@
 package com.nchudinov.entity;
 
-import com.nchudinov.listeners.AuditListener;
+import com.nchudinov.listeners.AuditDateListener;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @MappedSuperclass
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditDateListener.class)
 public abstract class AuditableEntity<T extends Serializable> implements BaseEntity<T> {
 
     private Instant createdAt;

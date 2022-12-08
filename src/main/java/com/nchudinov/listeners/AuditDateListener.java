@@ -6,7 +6,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.time.Instant;
 
-public class AuditListener {
+public class AuditDateListener {
 
 	//Перед сохранением сущности
 	@PrePersist
