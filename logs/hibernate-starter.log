@@ -1,0 +1,2 @@
+[2022-12-08 13:50:59,793] INFO [org.hibernate.orm.connections.pooling: 502] HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5433/postgres]
+[2022-12-08 13:50:59,794] DEBUG [org.hibernate.boot.registry.internal.BootstrapServiceRegistryImpl: 295] Implicitly destroying Boot-strap registry on de-registration of all child ServiceRegistries

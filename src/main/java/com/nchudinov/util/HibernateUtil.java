@@ -22,7 +22,7 @@ public class HibernateUtil {
         configuration.configure();
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
-		registerAudit(sessionFactory);
+		//registerAudit(sessionFactory);
 		return sessionFactory;
     }
 
