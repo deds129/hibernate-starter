@@ -42,7 +42,7 @@ import static com.nchudinov.util.StringUtils.SPACE;
 @Entity
 @Table(name = "users", schema = "public")
 @TypeDef(name = "nchudinov", typeClass = JsonBinaryType.class)
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Users")
 public class User implements Comparable<User>, BaseEntity<Long> {
 
     @Id

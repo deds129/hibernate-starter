@@ -18,8 +18,8 @@ public class HibernateRunner {
 			 Session session = sessionFactory.openSession()) {
 			
 			//нет кэша -> запрос в БД
+			//TestDataImporter.importData(sessionFactory);
 			user = session.find(User.class, 1L);
-			
 			//есть кэш первого уровня -> нет запроса в БД
 			var user1 = session.find(User.class, 1L);
 			user.getCompany().getName();
