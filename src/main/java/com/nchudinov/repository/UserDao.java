@@ -1,4 +1,4 @@
-package com.nchudinov.dao;
+package com.nchudinov.repository;
 
 import com.nchudinov.entity.Payment;
 import com.nchudinov.entity.PersonalInfo_;

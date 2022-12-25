@@ -1,8 +1,6 @@
 package com.nchudinov;
 
-import com.nchudinov.dao.PaymentRepository;
-import com.nchudinov.dao.UserRepository;
-import com.nchudinov.entity.Payment;
+import com.nchudinov.repository.UserRepository;
 import com.nchudinov.entity.User;
 import com.nchudinov.mappers.CompanyReadMapper;
 import com.nchudinov.mappers.UserReadMapper;
@@ -34,7 +32,7 @@ public class HibernateRunner {
 			UserReadMapper userReadMapper = new UserReadMapper(companyReadMapper);
 			
 			var usrService = new UserService(userRepository, userReadMapper);
-			System.err.println(usrService.getUserById(1L));
+			System.err.println(usrService.findById(1L));
 
 			//close session
 			session.getTransaction().commit();

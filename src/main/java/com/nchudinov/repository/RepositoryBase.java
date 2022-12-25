@@ -1,17 +1,20 @@
-package com.nchudinov.dao;
+package com.nchudinov.repository;
 
 import com.nchudinov.entity.BaseEntity;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public abstract class RepositoryBase<K extends Serializable, E extends BaseEntity<K>> implements Repository<K, E> {
 
 	private final Class<E> clazz;
+	@Getter
 	private final EntityManager entityManager; // работаем только с соединением
 
 	@Override
@@ -32,8 +35,8 @@ public abstract class RepositoryBase<K extends Serializable, E extends BaseEntit
 	}
 
 	@Override
-	public Optional<E> findById(K id) {
-		return Optional.ofNullable(entityManager.find(clazz, id));
+	public Optional<E> findById(K id, Map<String, Object> properties) {
+		return Optional.ofNullable(entityManager.find(clazz, id, properties));
 	}
 
 	@Override

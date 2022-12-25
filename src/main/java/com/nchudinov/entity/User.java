@@ -20,13 +20,19 @@ import java.util.List;
 import static com.nchudinov.util.StringUtils.SPACE;
 
 @NamedEntityGraph(
-					name = "withComanyAndChat",
+					name = "withCompanyAndChat",
 					attributeNodes = {
 							@NamedAttributeNode("company"),
 							@NamedAttributeNode(value = "userChats", subgraph = "chats")
 							},
 		subgraphs = {
 				@NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))
+		}
+)
+@NamedEntityGraph(
+		name = "withCompany",
+		attributeNodes = {
+				@NamedAttributeNode("company")
 		}
 )
 @NamedQuery(name = "findUserByName", query = "select u from User u " +

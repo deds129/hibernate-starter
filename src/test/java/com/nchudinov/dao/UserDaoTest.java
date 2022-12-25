@@ -2,6 +2,7 @@ package com.nchudinov.dao;
 
 import com.nchudinov.entity.Payment;
 import com.nchudinov.entity.User;
+import com.nchudinov.repository.UserDao;
 import com.nchudinov.util.HibernateTestUtil;
 import com.nchudinov.util.TestDataImporter;
 import lombok.Cleanup;

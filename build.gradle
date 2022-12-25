@@ -42,6 +42,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+    implementation 'org.hibernate:hibernate-validator:6.0.22.Final'
+    implementation 'javax.el:javax.el-api:3.0.0'
+    implementation 'org.glassfish:javax.el:3.0.0'
+
     //lombok dependencies
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
